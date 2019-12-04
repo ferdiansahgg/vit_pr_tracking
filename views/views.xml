@@ -1,5 +1,26 @@
 <odoo>
   <data>
-
+    <record id="view_tracking_tree" model="ir.ui.view">
+      <field name="name">view_tracking_tree.tree</field>
+      <field name="model">purchase.order.line</field>
+      <field name="type">tree</field>
+      <field name="priority" eval="8"/>
+      <field name="arch" type="xml">
+        <tree string="Tracking">
+          <field name="name"/>
+          <field name="proses_pengadaan"/>
+          <field name="reject_pr" />
+          <field name="nomor_po" />
+          <field name="tgl_po" />
+          <field name="line_po" />
+          <field name="nilai_po" />
+          <field name="vendor" />
+          <field name="bakn" />
+          <field name="tgl_share_po" />
+          <field name="efisiensi_rp" />
+          <field name="efisiensi_percent" />
+        </tree>
+      </field>
+    </record>
   </data>
 </odoo>

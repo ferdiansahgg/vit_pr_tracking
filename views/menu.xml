@@ -5,13 +5,17 @@
             <field name="name">Tracking</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">purchase.order.line</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <!--field name="context">{"search_default_department_id":uid}</field-->
+            <field name="view_id" ref="view_tracking_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add an Tracking
+                </p>
+                <p>
+                    Tambah Tracking
+                </p>
+            </field>
         </record>
-
-        <menuitem id="vit_pr_tracking" name="Menu Tracking" sequence="40" parent="vit_product_request.menu_request_root"/>
-        <menuitem id="vit_pr_tracking_sub" name="Tracking" sequence="40" parent="vit_pr_tracking" action="action_pr_tracking"/>
-
+        <menuitem id="vit_pr_tracking" name="Tracking" sequence="40" parent="vit_product_request.menu_request_root" action="action_pr_tracking"/>
     </data>
 </odoo>
