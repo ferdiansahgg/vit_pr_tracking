@@ -26,9 +26,9 @@ class po_tracking(models.Model):
         store=True,
     )
     wilayah = fields.Char(
-        # comodel_name="vit.po_line_department",
+        comodel_name="vit.po_line_department",
         string="Wilayah",
-        # related="line_department_ids.request_id.location_id",
+        related="line_department_ids.request_id.location_id.name",
         # store=True,
     )
     line_pr = fields.Char(string="Line PR")
