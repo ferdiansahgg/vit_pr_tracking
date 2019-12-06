@@ -15,7 +15,7 @@
     "category": "Uncategorized",
     "version": "0.1",
     # any module necessary for this one to work correctly
-    "depends": ["base", "vit_product_request"],
+    "depends": ["base", "vit_product_request", "vit_product_request_analytic"],
     # always loaded
     "data": [
         # 'security/ir.model.access.csv',

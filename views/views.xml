@@ -16,8 +16,6 @@
           <field name="diperiksa"/>
           <field name="konfirmasi_budget"/>
           <field name="disetujui"/>
-
-
           <field name="tgl_diterima"/>
           <field name="proses_pengadaan"/>
           <field name="reject_pr" />
@@ -30,7 +28,6 @@
           <field name="tgl_share_po" />
           <field name="efisiensi_rp" />
           <field name="efisiensi_percent" />
-
           <field name="kpi"/>
           <field name="sla"/>
         </tree>
