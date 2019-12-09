@@ -31,8 +31,19 @@ class po_tracking(models.Model):
         related="line_department_ids.request_id.location_id.name",
         # store=True,
     )
-    line_pr = fields.Char(string="Line PR")
-    nilai_pr = fields.Integer(string="Nilai PR")
+    line_pr = fields.Char(
+        comodel_name="vit.po_line_department",
+        domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
+        string="Line PR",
+        related="line_department_ids.request_id.product_request_line_ids.product_id.name",
+        # store=True,
+    )
+    nilai_pr = fields.Integer(
+        # comodel_name="vit.po_line_department",
+        # domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
+        string="Nilai PR",
+        # related="line_department_ids.request_id.product_request_line_ids.subtotal",
+    )
     diperiksa = fields.Char(string="Diperiksa")
     konfirmasi_budget = fields.Char(string="Konfirmasi Budget")
     disetujui = fields.Char(string="Disetujui")
@@ -51,9 +62,6 @@ class po_tracking(models.Model):
     kpi = fields.Char(string="KPI")
     sla = fields.Char(string="SLA")
 
-    # def get_date(self):
-    #     l = self.line_ids
-    #     d = l.line_deparment_ids
-    #     r = d.request_id
-    #     for x in r:
-    #         self.tgl_buat_pr = x.date
+    # class po_tracking_1(models.Model):
+    #     _name
+    #     pass
