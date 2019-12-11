@@ -38,11 +38,12 @@ class po_tracking(models.Model):
         related="line_department_ids.request_id.product_request_line_ids.product_id.name",
         # store=True,
     )
-    nilai_pr = fields.Integer(
-        # comodel_name="vit.po_line_department",
-        # domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
+    nilai_pr = fields.Float(
+        comodel_name="vit.po_line_department",
+        domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
         string="Nilai PR",
-        # related="line_department_ids.request_id.product_request_line_ids.subtotal",
+        related="line_department_ids.request_id.product_request_line_ids.subtotal",
+        # store=True,
     )
     diperiksa = fields.Char(string="Diperiksa")
     konfirmasi_budget = fields.Char(string="Konfirmasi Budget")
