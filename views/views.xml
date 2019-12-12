@@ -19,11 +19,11 @@
           <field name="tgl_diterima"/>
           <field name="proses_pengadaan"/>
           <field name="reject_pr" />
-          <field name="nomor_po" />
-          <field name="tgl_po" />
-          <field name="line_po" />
-          <field name="nilai_po" />
-          <field name="vendor" />
+          <field name="order_id" />
+          <field name="date_order" />
+          <field name="product_id" />
+          <field name="price_subtotal" />
+          <field name="partner_id" />
           <field name="bakn" />
           <field name="tgl_share_po" />
           <field name="efisiensi_rp" />

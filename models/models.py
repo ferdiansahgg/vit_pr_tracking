@@ -7,55 +7,20 @@ class po_tracking(models.Model):
     _name = "purchase.order.line"
     _inherit = "purchase.order.line"
 
-    tgl_buat_pr = fields.Date(
-        comodel_name="vit.po_line_department",
-        string="Tanggal Buat PR",
-        related="line_department_ids.request_id.date",
-        # store=True,
-    )
-    nomor_pr = fields.Char(
-        comodel_name="vit.po_line_department",
-        string="Nomer PR",
-        related="line_department_ids.request_id.name",
-        # store=True,
-    )
-    deskripsi = fields.Text(
-        comodel_name="vit.po_line_department",
-        string="Deskripsi",
-        related="line_department_ids.request_id.notes",
-        store=True,
-    )
-    wilayah = fields.Char(
-        comodel_name="vit.po_line_department",
-        string="Wilayah",
-        related="line_department_ids.request_id.location_id.name",
-        # store=True,
-    )
-    line_pr = fields.Char(
-        comodel_name="vit.po_line_department",
-        domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
-        string="Line PR",
-        related="line_department_ids.request_id.product_request_line_ids.product_id.name",
-        # store=True,
-    )
-    nilai_pr = fields.Float(
-        comodel_name="vit.po_line_department",
-        domain="[('line_department_ids.request_id.product_request_line_ids.product_id.default_code','=', self.product_id.default_code)]",
-        string="Nilai PR",
-        related="line_department_ids.request_id.product_request_line_ids.subtotal",
-        # store=True,
-    )
+    tgl_buat_pr = fields.Char(string="Tanggal Buat PR", compute="get_pr")
+    nomor_pr = fields.Char(string="Nomer PR", compute="get_pr")
+    deskripsi = fields.Char(string="Deskripsi", compute="get_pr")
+    wilayah = fields.Char(string="Wilayah", compute="get_pr")
+    line_pr = fields.Char(string="Line PR", compute="get_line_pr")
+    nilai_pr = fields.Float(string="Nilai PR",)
     diperiksa = fields.Char(string="Diperiksa")
-    konfirmasi_budget = fields.Char(string="Konfirmasi Budget")
-    disetujui = fields.Char(string="Disetujui")
-    tgl_diterima = fields.Date(string="Tanggal Diterima")
-    proses_pengadaan = fields.Char(string="Proses Pengadaan")
-    reject_pr = fields.Char(string="Reject PR")
-    nomor_po = fields.Integer(string="Nomor PO")
-    tgl_po = fields.Date(string="Tanggal PO")
-    line_po = fields.Char(string="Line PO")
-    nilai_po = fields.Integer(string="Nilai PO")
-    vendor = fields.Char(string="Vendor")
+    konfirmasi_budget = fields.Char(string="Konfirmasi Budget",)
+    disetujui = fields.Char(string="Disetujui",)
+    tgl_diterima = fields.Datetime(string="Tanggal Diterima",)
+    proses_pengadaan = fields.Char(string="Proses Pengadaan",)
+    reject_pr = fields.Char(string="Reject PR",)
+    nomor_po = fields.Char(string="Nomor PO",)
+
     bakn = fields.Char(string="BAKN")
     tgl_share_po = fields.Date(string="Tanggal Share PO")
     efisiensi_rp = fields.Char(string="Efisiensi RP")
@@ -63,6 +28,35 @@ class po_tracking(models.Model):
     kpi = fields.Char(string="KPI")
     sla = fields.Char(string="SLA")
 
-    # class po_tracking_1(models.Model):
-    #     _name
-    #     pass
+    def get_pr(self):
+        pa_obj = self.env["purchase.requisition"]
+        pr_obj = self.env["vit.product.request"]
+        for rec in self:  # rec = po line
+            pa = pa_obj.search([("name", "=", rec.order_id.origin)])
+            tgl_buat_pr = []
+            nomor_pr = []
+            deskripsi = []
+            wilayah = []
+            line_pr = []
+            for line_pa in pa.line_ids:
+                for line_dep in line_pa.line_department_ids:
+                    tgl_buat_pr.append(line_dep.request_id.date.strftime("%d-%b-%Y"))
+                    nomor_pr.append(line_dep.request_id.name)
+                    deskripsi.append(line_dep.request_id.notes)
+                    wilayah.append(line_dep.request_id.location_id.name)
+            rec.tgl_buat_pr = ",".join(tgl_buat_pr)
+            rec.nomor_pr = nomor_pr
+            rec.deskripsi = deskripsi
+            rec.wilayah = wilayah
+            
+    def get_line_pr(self):
+        pa_obj = self.env["purchase.requisition"]
+        pr_obj = self.env["product.product"]
+        for rec in self:  # rec = po line
+            pa = pa_obj.search([("name", "=", rec.order_id.origin)])
+            line_pr = []
+            for line_pa in pa.line_ids:
+                for line_dep in line_pa.line_department_ids:
+                    tgl_buat_pr.append(line_dep.request_id.date.strftime("%d-%b-%Y"))
+            rec.tgl_buat_pr = ",".join(tgl_buat_pr)
+            rec.nomor_pr = nomor_pr
